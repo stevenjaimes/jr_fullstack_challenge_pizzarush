@@ -1,0 +1,6 @@
+node_modules
+dist
+coverage
+# Archivos de configuración de editores
+.idea/
+.vscode/
