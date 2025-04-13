@@ -1,6 +1,7 @@
 node_modules
 dist
 coverage
+.env
 # Archivos de configuración de editores
 .idea/
 .vscode/

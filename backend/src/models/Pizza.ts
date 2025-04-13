@@ -3,5 +3,6 @@ export interface Pizza {
   name: string;
   price: number;
   ingredients: string[];
+  imageUrl: string;      
+  description: string;    
 }
-

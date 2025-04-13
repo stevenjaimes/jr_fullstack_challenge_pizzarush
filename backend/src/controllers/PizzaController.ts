@@ -17,8 +17,6 @@ export class PizzaController {
 
 
   create = async (req: Request, res: Response): Promise<void> => {
-    console.log("Body recibido:", req.body); 
-
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       res.status(400).json({ errors: errors.array() });
@@ -26,10 +24,18 @@ export class PizzaController {
     }
 
     try {
-      const newPizza = await this.service.createPizza(req.body);
+      const pizzaData = {
+        ...req.body,
+        imageUrl: req.body.imageUrl, // URL de la imagen subida
+        description: req.body.description || '' // Descripción opcional
+      };
+      
+      const newPizza = await this.service.createPizza(pizzaData);
       res.status(201).json(newPizza);
-    } catch (error) {
-      res.status(500).json({ error: "Failed to create pizza" });
+    } catch (error: any) {
+      res.status(500).json({ 
+        error: error.message || "Failed to create pizza" 
+      });
     }
   };
 }

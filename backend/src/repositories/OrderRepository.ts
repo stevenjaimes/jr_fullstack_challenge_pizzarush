@@ -20,4 +20,11 @@ export class OrderRepository  implements IOrderRepository {
     const snapshot = await this.collection.get();
     return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Order));
   }
+
+  async getByUserId(userId: string): Promise<Order[]> {
+    const snapshot = await this.collection.where("userId", "==", userId).get();
+    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Order));
+  }
+
+
 }
