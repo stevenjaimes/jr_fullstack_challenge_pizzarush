@@ -1,4 +1,4 @@
-import { PizzaService } from "@/services/PizzaService";
+import { PizzaService } from "../services/PizzaService";
 import { mockPizzaRepository } from "@/tests/__mocks__/repositories/PizzaRepository";
 import { Pizza } from "@/models/Pizza";
 
