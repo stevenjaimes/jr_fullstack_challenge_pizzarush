@@ -1,0 +1,8 @@
+node_modules
+dist
+coverage
+.env
+# Archivos de configuración de editores
+.idea/
+.vscode/
+pizzarush-7620e-firebase-adminsdk-fbsvc-45f40d8302.json
