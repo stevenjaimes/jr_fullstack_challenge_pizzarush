@@ -1,4 +1,4 @@
-import { ShoppingCart, Pizza } from 'lucide-react';
+import { ShoppingCart, Pizza, Menu, User } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { logout } from '../firebase/auth';
 import { Link } from 'react-router-dom';
@@ -10,11 +10,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useCartStore } from '../store/cartStore';
+import { useState } from 'react';
 
 export const Header = () => {
   const { currentUser } = useAuth();
   const { toggleCart, totalItems } = useCartStore();
-  
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const getInitials = (name?: string | null) => {
     if (!name) return 'US';
@@ -25,14 +26,25 @@ export const Header = () => {
   const userName = currentUser?.displayName || currentUser?.email?.split('@')[0];
 
   return (
-    <header className="bg-white shadow-md">
+    <header className="bg-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          <div className="flex items-center">
+          {/* Menú hamburguesa (solo móvil) */}
+          <button 
+            className="md:hidden p-2 rounded-md text-gray-600 hover:text-orange-500 focus:outline-none"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Abrir menú"
+          >
+            <Menu className="h-6 w-6" />
+          </button>
+
+          {/* Logo - centrado en móvil */}
+          <div className="flex items-center md:ml-0 mx-auto md:mx-0">
             <Pizza className="h-8 w-8 text-orange-500" />
-            <span className="ml-2 text-xl font-bold text-gray-800">PizzaMia</span>
+            <span className="ml-2 text-xl font-bold text-gray-800">PizzaRush</span>
           </div>
           
+          {/* Menú de navegación (escritorio) */}
           <nav className="hidden md:flex space-x-8">
             <Link to="/" className="text-gray-600 hover:text-orange-500">Inicio</Link>
             <Link to="#menu" className="text-gray-600 hover:text-orange-500">Menú</Link>
@@ -40,8 +52,8 @@ export const Header = () => {
             <Link to="#" className="text-gray-600 hover:text-orange-500">Contacto</Link>
           </nav>
           
-          <div className="flex items-center space-x-6">
-       
+          {/* Iconos de carrito y usuario */}
+          <div className="flex items-center space-x-4 md:space-x-6">
             <button 
               onClick={toggleCart}
               className="relative p-2 rounded-full hover:bg-gray-50 transition-colors"
@@ -98,13 +110,50 @@ export const Header = () => {
             ) : (
               <Link
                 to="/login"
-                className="text-sm text-gray-600 hover:text-orange-500 transition-colors"
+                className="text-gray-600 hover:text-orange-500 transition-colors p-2"
+                aria-label="Iniciar sesión"
               >
-                Iniciar sesión
+                <User className="h-5 w-5" />
               </Link>
             )}
           </div>
         </div>
+
+        {/* Menú móvil (dropdown) */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-white py-2 px-4 shadow-lg rounded-b-lg border-t border-gray-100">
+            <nav className="flex flex-col space-y-3">
+              <Link 
+                to="/" 
+                className="text-gray-600 hover:text-orange-500 py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Inicio
+              </Link>
+              <Link 
+                to="#menu" 
+                className="text-gray-600 hover:text-orange-500 py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Menú
+              </Link>
+              <Link 
+                to="#" 
+                className="text-gray-600 hover:text-orange-500 py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Sobre Nosotros
+              </Link>
+              <Link 
+                to="#" 
+                className="text-gray-600 hover:text-orange-500 py-2"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Contacto
+              </Link>
+            </nav>
+          </div>
+        )}
       </div>
     </header>
   );

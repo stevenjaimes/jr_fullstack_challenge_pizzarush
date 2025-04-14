@@ -11,6 +11,7 @@ import { CartSidebar } from './components/CartSidebar';
 import { Toaster } from 'sonner';
 import { Checkout } from './pages/Checkout';
 import { OrderConfirmation } from './pages/OrdenConfirmation'; // Añade esta importación
+import { Footer } from './components/Footer';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             </Route>
 
           </Routes>
+          <Footer />
           <CartSidebar />
         </AuthProvider>
         <Toaster position="top-center" richColors />

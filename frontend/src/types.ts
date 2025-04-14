@@ -6,4 +6,5 @@ export interface Pizza {
     imageUrl?: string;
     description?: string;
     ingredients: string[];
+    category?: string; 
   }
