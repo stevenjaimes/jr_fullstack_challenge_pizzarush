@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { PizzaController } from "../controllers/PizzaController";
-import { PizzaService } from "../services/PizzaService";
-import { PizzaRepository } from "../repositories/PizzaRepository";
+import { PizzaService } from "@/services/PizzaService";
+import { PizzaRepository } from "@/repositories/PizzaRepository";
 import { pizzaValidations } from '../validators/PizzaValidator';
 
 const router = Router();
